@@ -1,27 +1,13 @@
-# FaserPruebaTecnica
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Prueba técnica - Estudio Faser
+## Requerimientos
+En este repositorio encontrarás un proyecto base Angular con elementos muy básicos. Dentro de `AppComponent` se encuentra una variable que contiene un listado de tareas. Debes realizar las modificaciones necesarias para obtener los siguientes resultados:
+1. Cambiar el listado ordenado por una tabla HTML.
+2. Agregar la opción para poder agregar nuevas tareas al listado, cada una con su título y duración en minutos.
+3. Agregar la opción para eliminar cualquier tarea del listado.
+4. Agregar un botón que permita ordenar el listado por el número de minutos que lleva cada tarea.
+5. Agregar la opción para poder marcar una o varias tareas como destacadas. Las tareas destacadas deben tener un estilo que las distinga de las tareas normales.
+## Observaciones
+- Se calificará que se cumplan los requerimientos solicitados.
+- Se favorecerá al código legible, comentado y que siga buenas prácticas de programación.
+- Concentrarse únicamente en el cumplimiento de los requerimientos. Se ignorará el aspecto gráfico de la aplicación.
+- Cualquier duda sobre los requerimientos o la entrega comunicarla vía WhatsApp.
