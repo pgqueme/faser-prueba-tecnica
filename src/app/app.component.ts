@@ -7,13 +7,14 @@ import { Tarea } from './tarea';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
 	tareas: Tarea[];
 
 	constructor(
         public service: AppService,
 	) { }
-	
+
 	ngOnInit() {
 		this.obtenerTareas();
 	}
