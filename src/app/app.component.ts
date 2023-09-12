@@ -27,13 +27,29 @@ export class AppComponent {
 
 	async agregarTarea(nombre = "", tiempo = 0){
 		let ultimoElemento = this.tareas.length + 1
-		this.tareas.push(new Tarea(ultimoElemento, nombre, tiempo, false));
+		this.tareas.push(new Tarea(ultimoElemento, nombre, tiempo, false, false));
 		this.nombre_tarea = "";
 		this.tiempo_tarea = 0;
 	}
 	async seleccionarTarea(indice = -1){
 		if(indice > -1 ){
-			let tarea:any = this.tareas[indice].seleccionada = true;
+			if(this.tareas[indice].seleccionada == false){
+				this.tareas[indice].seleccionada = true;
+			}
+			else{
+				this.tareas[indice].seleccionada = false;
+			}
+		}
+	}
+	async destacarTarea(indice = -1){
+		console.log('-',this.tareas);
+		if(indice > -1 ){
+			if(this.tareas[indice].destacada == false){
+				this.tareas[indice].destacada = true;
+			}
+			else{
+				this.tareas[indice].destacada = false;
+			}
 		}
 	}
 	async eliminarTareas(){
