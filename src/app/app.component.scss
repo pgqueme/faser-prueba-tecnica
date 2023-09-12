@@ -5,3 +5,20 @@
 h1 {
     margin-top: 0px;
 }
+
+.table-bordered th{
+    cursor: pointer;
+}
+
+.table-bordered th,
+.table-bordered td{
+    padding: 5px;
+    border: 1px solid #000;
+}
+.circle{
+    display: inline-block;
+    background: rgb(109, 1, 1);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+}
