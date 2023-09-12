@@ -1,7 +1,33 @@
 <div class="container">
-	<h1>Prueba técnica - Estudio Faser</h1>
+	<h1>Prueba técnica - Estudio Faser Hola</h1>
+	<div>
+		<label for="fname">Nombre:</label>
+		<input type="text" id="nombre" name="nombre_tarea" [(ngModel)]="nombre_tarea"><br><br>
+		<label for="lname">Duración:</label>
+		<input type="number" id="tiempo" name="tiempo_tarea" [(ngModel)]="tiempo_tarea"><br><br>
+		<input type="button" value="Agregar" (click) = "agregarTarea(nombre_tarea, tiempo_tarea)">
+	</div>
 	<h2>Listado de tareas</h2>
-	<ol>
-		<li *ngFor="let tarea of tareas">{{tarea.titulo}} ({{tarea.minutos}} minutos)</li>
-	</ol>
+
+	<table id="tabla"class="table table-bordered">
+		<thead>
+			<tr>
+				<th scope="col">Seleccionar</th>
+				<th scope="col" (click)="ordenarTabla(1, this.order)">Tarea</th>
+				<th scope="col" (click)="ordenarTabla(2, this.order, true)">Duración</th>
+			</tr>
+		</thead>
+		<tbody *ngFor="let tarea of tareas; let i = index">
+			<tr>
+				<td><input type="checkbox" [checked]="tarea.seleccionada" (click) = "seleccionarTarea(i)"></td>
+				<td>{{tarea.titulo}}</td>
+				<td>{{tarea.minutos}} minutos</td>
+			</tr>
+		</tbody>
+	
+	</table>
+	<br>
+	<div>
+		<input type="button" value="Eliminar Tareas" (click) = "eliminarTareas()">
+	</div>
 </div>
