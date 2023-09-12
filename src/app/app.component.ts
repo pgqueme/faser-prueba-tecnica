@@ -11,6 +11,7 @@ export class AppComponent {
 	tareas: Tarea[];
 	nombre_tarea:string = "";
 	tiempo_tarea:number = 0;
+	order:boolean = true;
 
 	constructor(
         public service: AppService,
@@ -43,4 +44,52 @@ export class AppComponent {
 			}
 		});
 	}
+	
+	async ordenarTabla(col, order = true, num = false) {
+		this.order = !order;
+		var table, rows, switching, i, x, y, shouldSwitch;
+		table = document.getElementById("tabla");
+		switching = true;
+		while (switching) {
+		switching = false;
+		rows = table.rows;
+		for (i = 1; i < (rows.length - 1); i++) {
+			shouldSwitch = false;
+			x = rows[i].getElementsByTagName("TD")[col];
+			y = rows[i + 1].getElementsByTagName("TD")[col];
+			if(this.order == true){
+				if(num == true){
+					if (parseFloat(x.innerHTML) > parseFloat(y.innerHTML)) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+				else{
+					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			else{
+				if(num == true){
+					if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+				else{
+					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+		}
+		if (shouldSwitch) {
+			rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+			switching = true;
+		}
+		}
+  	}
 }

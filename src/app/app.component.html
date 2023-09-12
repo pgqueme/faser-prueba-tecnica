@@ -9,12 +9,12 @@
 	</div>
 	<h2>Listado de tareas</h2>
 
-	<table class="table table-bordered">
+	<table id="tabla"class="table table-bordered">
 		<thead>
 			<tr>
 				<th scope="col">Seleccionar</th>
-				<th scope="col">Tarea</th>
-				<th scope="col">Duración</th>
+				<th scope="col" (click)="ordenarTabla(1, this.order)">Tarea</th>
+				<th scope="col" (click)="ordenarTabla(2, this.order, true)">Duración</th>
 			</tr>
 		</thead>
 		<tbody *ngFor="let tarea of tareas; let i = index">
