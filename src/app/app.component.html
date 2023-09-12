@@ -12,12 +12,14 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
+				<th scope="col">Seleccionar</th>
 				<th scope="col">Tarea</th>
 				<th scope="col">Duración</th>
 			</tr>
 		</thead>
-		<tbody *ngFor="let tarea of tareas">
+		<tbody *ngFor="let tarea of tareas; let i = index">
 			<tr>
+				<td><input type="checkbox" [checked]="tarea.seleccionada" (click) = "seleccionarTarea(i)"></td>
 				<td>{{tarea.titulo}}</td>
 				<td>{{tarea.minutos}} minutos</td>
 			</tr>
