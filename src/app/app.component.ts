@@ -31,9 +31,16 @@ export class AppComponent {
 		this.tiempo_tarea = 0;
 	}
 	async seleccionarTarea(indice = -1){
-		debugger
 		if(indice > -1 ){
 			let tarea:any = this.tareas[indice].seleccionada = true;
 		}
+	}
+	async eliminarTareas(){
+		this.tareas.forEach((tarea, indice) => {
+			if(tarea.seleccionada == true){
+				this.tareas.splice(indice,1);
+				this.eliminarTareas();
+			}
+		});
 	}
 }
