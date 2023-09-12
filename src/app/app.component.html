@@ -1,11 +1,19 @@
 <div class="container">
 	<h1>Prueba técnica - Estudio Faser Hola</h1>
+	<div>
+		<label for="fname">Nombre:</label>
+		<input type="text" id="nombre" name="nombre_tarea" [(ngModel)]="nombre_tarea"><br><br>
+		<label for="lname">Duración:</label>
+		<input type="number" id="tiempo" name="tiempo_tarea" [(ngModel)]="tiempo_tarea"><br><br>
+		<input type="button" value="Agregar" (click) = "agregarTarea(nombre_tarea, tiempo_tarea)">
+	</div>
 	<h2>Listado de tareas</h2>
+
 	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th scope="col">Tarea</th>
-				<th scope="col">Tiempo</th>
+				<th scope="col">Duración</th>
 			</tr>
 		</thead>
 		<tbody *ngFor="let tarea of tareas">
