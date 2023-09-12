@@ -60,7 +60,10 @@ export class AppComponent {
 			}
 		});
 	}
-	
+	async ordenarTareasTabla() {
+		const shuffledArray = this.tareas.sort((a, b) => 0.5 - Math.random());
+		this.tareas = shuffledArray;
+	}
 	async ordenarTabla(col, order = true, num = false) {
 		this.order = !order;
 		var table, rows, switching, i, x, y, shouldSwitch;
