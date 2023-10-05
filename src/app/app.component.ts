@@ -2,6 +2,14 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AppService} from './app.service';
 import {Tarea} from './tarea';
 
+interface ColumnHeader {
+  name: string;
+  sorting: boolean;
+  direction: 'up' | 'down';
+  sortFunction: (col: ColumnHeader, prop: string) => void;
+  prop: keyof Tarea;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,6 +20,10 @@ export class AppComponent implements OnInit {
   @ViewChild('inputTime', {static: false}) inputTime: ElementRef<HTMLInputElement>;
   @ViewChild('inputTarea', {static: false}) inputTarea: ElementRef<HTMLInputElement>;
   tareas: Tarea[];
+  titles: ColumnHeader[] = [
+    {name: 'titulo', prop: 'titulo', sorting: false, direction: 'up', sortFunction: this.sortByText.bind(this)},
+    {name: 'minutos', prop: 'minutos', sorting: false, direction: 'up', sortFunction: this.sortByNumber.bind(this)},
+  ];
 
   constructor(
     public service: AppService,
@@ -26,38 +38,14 @@ export class AppComponent implements OnInit {
     this.tareas = await this.service.obtenerTareas();
   }
 
-  getDirection(arrowUp, arrowDown): 'up' | 'down' {
-    if (
-      arrowUp.classList.contains('hidden') &&
-      arrowDown.classList.contains('hidden')
-    ) {
-      return 'up';
-    }
-
-    if (arrowUp.classList.contains('hidden')) {
-      return 'up';
-    }
-    return 'down';
+  sortCol(col: ColumnHeader, prop: string, fn: (row: Tarea[], direction: string) => void) {
+    this.titles.forEach((title) => title.sorting = false);
+    col.sorting = true;
+    col.direction = col.direction === 'up' ? 'down' : 'up';
+    fn(this.tareas, col.direction);
   }
 
-  sortCol(col: HTMLTableHeaderCellElement, prop: string, fn: (row: Tarea[], direction: string) => void) {
-    const arrowUp = col.querySelector('i.fa-chevron-up');
-    const arrowDown = col.querySelector('i.fa-chevron-down');
-    const direction = this.getDirection(arrowUp, arrowDown);
-
-    fn(this.tareas, direction);
-    if (direction === 'up') {
-      arrowUp.classList.remove('hidden');
-      arrowDown.classList.add('hidden');
-    }
-
-    if (direction === 'down') {
-      arrowUp.classList.add('hidden');
-      arrowDown.classList.remove('hidden');
-    }
-  }
-
-  sortByText(col: HTMLTableHeaderCellElement, prop: string) {
+  sortByText(col: ColumnHeader, prop: string) {
     console.log('sortByTime');
     this.sortCol(col, prop, (rows, direction) => {
       rows.sort((a, b) => {
@@ -69,7 +57,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  sortByTime(col: HTMLTableHeaderCellElement, prop: string) {
+  sortByNumber(col: ColumnHeader, prop: string) {
     console.log('sortByTime');
     this.sortCol(col, prop, (rows, direction) => {
       rows.sort((a, b) => {
@@ -95,8 +83,12 @@ export class AppComponent implements OnInit {
     this.tareas = this.tareas.filter((tarea) => !tarea.selected);
   }
 
-  markSelectedTasks(b: boolean) {
-    this.tareas.forEach((tarea) => {
+  markSelectedTasks(b?: boolean) {
+    this.tareas.filter((tarea) => tarea.selected).forEach((tarea) => {
+      if (b === undefined) {
+        tarea.mark = !tarea.mark;
+        return;
+      }
       tarea.mark = b;
     });
   }
@@ -111,9 +103,14 @@ export class AppComponent implements OnInit {
 
   sortAleatory() {
     this.tareas.sort(() => Math.random() - 0.5);
+    this.titles.forEach((title) => {
+      title.sorting = false;
+      title.direction = 'up';
+    });
   }
 
   selectAll() {
-    this.tareas.forEach((tarea) => tarea.selected = true);
+    const isAllSelected = this.tareas.every((tarea) => tarea.selected);
+    this.tareas.forEach((tarea) => tarea.selected = !isAllSelected);
   }
 }

@@ -21,24 +21,25 @@
   <div style="display: flex; gap: 1rem">
     <button (click)="markSelectedTasks(true)">Destacar todas las seleccionadas</button>
     <button (click)="markSelectedTasks(false)">Quitar destacado de todas las seleccionadas</button>
+    <button (click)="markSelectedTasks()">Toggle destacado de todas las seleccionadas</button>
   </div>
   <table #table>
     <thead>
     <tr>
-      <th #titleCol class="cursor-pointer" (click)="sortByText(titleCol, 'titulo')"><span>Titulo</span><i
-        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-up hidden"></i>^<i
-        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-down hidden">v</i></th>
-      <th #timeCol (click)="sortByTime(timeCol, 'minutos')"><span>Minutos</span><i
-        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-up hidden"></i><i
-        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-down hidden"></i></th>
+      <th (click)="title.sortFunction(title, title.prop)" *ngFor="let title of titles">
+        <span>{{title.name}}</span>
+        <i [hidden]="title.direction === 'down' || !title.sorting"
+           class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-up">^</i>
+        <i [hidden]="title.direction === 'up' || !title.sorting"
+           class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-down">v</i>
+      </th>
       <th>Acciones</th>
       <th>Seleccionar</th>
     </tr>
     </thead>
     <tbody>
     <tr [style.background-color]="tarea.mark ? 'red' : ''" *ngFor="let tarea of tareas">
-      <td>{{tarea.titulo}}</td>
-      <td>{{tarea.minutos}}</td>
+      <td *ngFor="let title of titles">{{tarea[title.prop]}}</td>
       <td style="display: flex; gap: 1rem" class="flex gap-2">
         <span (click)="deleteTask(tarea)">Eliminar</span>
         <span (click)="markTask(tarea)">Marcar</span>
