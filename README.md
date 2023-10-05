@@ -12,10 +12,12 @@ De cualquier manera, si ven esta rama, pueden darle un vistazo y ver como lo hic
 
 1. Introducción de la Interfaz ColumnHeader, para poder hacer el ordenamiento de manera más sencilla y dejar de trabajar
    con el DOM.
-2. Introducción del Botón Toggle Destacar, básicamente en las tareas que están seleccionadas, se le destaca y se les
+2. Creación del Servicio TableSortingService, para poder separar esa funcionalidad de la tabla. y poder
+   reutilizarla en otras tablas.
+3. Introducción del Botón Toggle Destacar, básicamente en las tareas que están seleccionadas, se le destaca y se les
    quita cuando se vuelve a presionar el botón.
-3. Seleccionar todo ahora también funciona como un toggle cuando todas las tareas están seleccionadas.
-4. arregle bug de UI, de flechita hacia arriba y hacia abajo.
+4. Seleccionar todo ahora también funciona como un toggle cuando todas las tareas están seleccionadas.
+5. arregle bug de UI, de flechita hacia arriba y hacia abajo.
 
 ## Instalación
 

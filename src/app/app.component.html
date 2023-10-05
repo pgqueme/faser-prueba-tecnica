@@ -9,7 +9,9 @@
   <button (click)="addTask()">Agregar Tarea</button>
 
   <div>
-    <button (click)="sortAleatory()" class="px-2 py-1 bg-black text-white">Ordenar Aleatoriamente</button>
+    <button (click)="this.tableService.sortAleatory(this.titles)" class="px-2 py-1 bg-black text-white">Ordenar
+      Aleatoriamente
+    </button>
   </div>
 
   <div>
@@ -23,11 +25,11 @@
     <button (click)="markSelectedTasks(false)">Quitar destacado de todas las seleccionadas</button>
     <button (click)="markSelectedTasks()">Toggle destacado de todas las seleccionadas</button>
   </div>
-  <table #table>
+  <table *ngIf="tareas !== undefined" #table>
     <thead>
     <tr>
-      <th (click)="title.sortFunction(title, title.prop)" *ngFor="let title of titles">
-        <span>{{title.name}}</span>
+      <th (click)="title.sortFunction(title)" *ngFor="let title of titles">
+        <span>{{title.name | titlecase}}</span>
         <i [hidden]="title.direction === 'down' || !title.sorting"
            class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-up">^</i>
         <i [hidden]="title.direction === 'up' || !title.sorting"
