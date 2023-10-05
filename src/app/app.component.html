@@ -11,6 +11,17 @@
   <div>
     <button (click)="sortAleatory()" class="px-2 py-1 bg-black text-white">Ordenar Aleatoriamente</button>
   </div>
+
+  <div>
+    <button (click)="selectAll()">Seleccionar todas</button>
+  </div>
+  <div>
+    <button (click)="deleteSelectedTasks()">Eliminar todas las seleccionadas</button>
+  </div>
+  <div style="display: flex; gap: 1rem">
+    <button (click)="markSelectedTasks(true)">Destacar todas las seleccionadas</button>
+    <button (click)="markSelectedTasks(false)">Quitar destacado de todas las seleccionadas</button>
+  </div>
   <table #table>
     <thead>
     <tr>
@@ -21,14 +32,18 @@
         class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-up hidden"></i><i
         class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-down hidden"></i></th>
       <th>Acciones</th>
+      <th>Seleccionar</th>
     </tr>
     </thead>
     <tbody>
     <tr [style.background-color]="tarea.mark ? 'red' : ''" *ngFor="let tarea of tareas">
       <td>{{tarea.titulo}}</td>
       <td>{{tarea.minutos}}</td>
-      <td (click)="eliminarTarea(tarea)">Eliminar</td>
-      <td (click)="markTask(tarea)">Marcar</td>
+      <td style="display: flex; gap: 1rem" class="flex gap-2">
+        <span (click)="deleteTask(tarea)">Eliminar</span>
+        <span (click)="markTask(tarea)">Marcar</span>
+      </td>
+      <td><input [(ngModel)]="tarea.selected" type="checkbox"></td>
     </tr>
 
     </tbody>

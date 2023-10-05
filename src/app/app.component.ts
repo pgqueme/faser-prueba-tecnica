@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
   }
 
   sortCol(col: HTMLTableHeaderCellElement, prop: string, fn: (row: Tarea[], direction: string) => void) {
-    const rows = Array.from(this.table.nativeElement.querySelectorAll('tbody tr'));
     const arrowUp = col.querySelector('i.fa-chevron-up');
     const arrowDown = col.querySelector('i.fa-chevron-down');
     const direction = this.getDirection(arrowUp, arrowDown);
@@ -62,7 +61,7 @@ export class AppComponent implements OnInit {
     console.log('sortByTime');
     this.sortCol(col, prop, (rows, direction) => {
       rows.sort((a, b) => {
-        if (direction === 'up') {
+        if (direction !== 'up') {
           return a[prop].localeCompare(b[prop]);
         }
         return b[prop].localeCompare(a[prop]);
@@ -92,7 +91,17 @@ export class AppComponent implements OnInit {
     });
   }
 
-  eliminarTarea(tarea: Tarea) {
+  deleteSelectedTasks() {
+    this.tareas = this.tareas.filter((tarea) => !tarea.selected);
+  }
+
+  markSelectedTasks(b: boolean) {
+    this.tareas.forEach((tarea) => {
+      tarea.mark = b;
+    });
+  }
+
+  deleteTask(tarea: Tarea) {
     this.tareas.splice(this.tareas.indexOf(tarea), 1);
   }
 
@@ -104,5 +113,7 @@ export class AppComponent implements OnInit {
     this.tareas.sort(() => Math.random() - 0.5);
   }
 
-  protected readonly origin = origin;
+  selectAll() {
+    this.tareas.forEach((tarea) => tarea.selected = true);
+  }
 }
