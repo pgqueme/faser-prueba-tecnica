@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
     const titulo = this.inputTarea.nativeElement.value;
     const minutos = Number(this.inputTime.nativeElement.value);
     this.tareas.push({
-      id: this.tareas.length + 1,
+      id: this.tareas.reduce((MAX, {id}) => Math.max(MAX, id), -Infinity) + 1,
       titulo,
       minutos,
     });
