@@ -1,7 +1,37 @@
 <div class="container">
-	<h1>Prueba técnica - Estudio Faser</h1>
-	<h2>Listado de tareas</h2>
-	<ol>
-		<li *ngFor="let tarea of tareas">{{tarea.titulo}} ({{tarea.minutos}} minutos)</li>
-	</ol>
+  <h1>Prueba técnica - Estudio Faser</h1>
+  <h2>Listado de tareas</h2>
+  <h2>Agregar Tarea</h2>
+  <div class="flex">
+    <input #inputTarea type="text" placeholder="tarea">
+    <input #inputTime type="number" placeholder="tiempo">
+  </div>
+  <button (click)="addTask()">Agregar Tarea</button>
+
+  <div>
+    <button (click)="sortAleatory()" class="px-2 py-1 bg-black text-white">Ordenar Aleatoriamente</button>
+  </div>
+  <table #table>
+    <thead>
+    <tr>
+      <th #titleCol class="cursor-pointer" (click)="sortByText(titleCol, 'titulo')"><span>Titulo</span><i
+        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-up hidden"></i>^<i
+        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-down hidden">v</i></th>
+      <th #timeCol (click)="sortByTime(timeCol, 'minutos')"><span>Minutos</span><i
+        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-up hidden"></i><i
+        class="text-[10px] bg-[#f3f4f6] rounded-sm p-1 text-black fa-solid fa-chevron-down hidden"></i></th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr [style.background-color]="tarea.mark ? 'red' : ''" *ngFor="let tarea of tareas">
+      <td>{{tarea.titulo}}</td>
+      <td>{{tarea.minutos}}</td>
+      <td (click)="eliminarTarea(tarea)">Eliminar</td>
+      <td (click)="markTask(tarea)">Marcar</td>
+    </tr>
+
+    </tbody>
+  </table>
+
 </div>
